@@ -5,14 +5,16 @@ import java.time.format.DateTimeFormatter;
 public class Todo {
 
     private String noteContents;
-    private final String dateOfNoteConception;
+    private final String noteTitle;
+    private final LocalDate dateOfNoteConception;
     private LocalDate userDefinedEndDateOfNote;
     private Boolean isTheNoteCompleted;
 
-    public Todo() {
-        DateTimeFormatter timeAndDateFormatingObject = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        LocalDateTime rawDateAndTimeObject = LocalDateTime.now();
-        this.dateOfNoteConception = rawDateAndTimeObject.format(timeAndDateFormatingObject);
+    public Todo(String title) {
+        //DateTimeFormatter timeAndDateFormatingObject = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        //LocalDateTime rawDateAndTimeObject = LocalDateTime.now();
+        this.dateOfNoteConception = LocalDate.now();
+        this.noteTitle = title;
     }
 
     public String getNoteContents() {
@@ -22,8 +24,11 @@ public class Todo {
     public void setNoteContents(String noteContents) {
         this.noteContents = noteContents;
     }
+    public String getNoteTitle() {
+        return noteTitle;
+    }
 
-    public String getDateOfNoteConception() {
+    public LocalDate getDateOfNoteConception() {
         return dateOfNoteConception;
     }
 

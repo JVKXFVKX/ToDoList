@@ -13,8 +13,8 @@ public class TodoList {
         todoListArray.add(note);
     }
 
-    public void removeTodoFromArray(Todo note) {
-        todoListArray.remove(note);
+    public void removeTodoFromArrayByIndex(int index) {
+        todoListArray.remove(index);
     }
 
     public static ArrayList<Todo> getAllTodos() {
