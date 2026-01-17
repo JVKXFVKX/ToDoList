@@ -1,13 +1,16 @@
-
+import Gui.MyGUI;
+import ToDos.Todo;
+import ToDos.TodoList;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        int userMenuChoice;
         DateTimeFormatter displayDateOnly = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         Scanner scanner = new Scanner(System.in);
         TodoList myListOfToDos = new TodoList();
-        int userMenuChoice;
+        MyGUI mygui = new MyGUI(myListOfToDos);
 
         do {
             Menu menu = new Menu();

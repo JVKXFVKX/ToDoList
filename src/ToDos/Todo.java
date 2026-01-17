@@ -1,5 +1,5 @@
+package ToDos;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Todo {
@@ -11,8 +11,6 @@ public class Todo {
     private Boolean isTheNoteCompleted;
 
     public Todo(String title) {
-        //DateTimeFormatter timeAndDateFormatingObject = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        //LocalDateTime rawDateAndTimeObject = LocalDateTime.now();
         this.dateOfNoteConception = LocalDate.now();
         this.noteTitle = title;
     }
