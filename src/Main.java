@@ -1,3 +1,4 @@
+import Gui.MyGUI;
 import ToDos.TodoItem;
 import ToDos.TodoList;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +10,7 @@ public class Main {
         DateTimeFormatter displayDateOnly = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         Scanner scanner = new Scanner(System.in);
         TodoList myListOfToDos = new TodoList();
-        //MyGUI mygui = new MyGUI(myListOfToDos);
+        MyGUI mygui = new MyGUI(myListOfToDos);
 
         do {
             Menu menu = new Menu();
@@ -19,7 +20,7 @@ public class Main {
             if (userMenuChoice == 1) {
                 System.out.print("Enter Title: ");
                 String userTitle = scanner.nextLine();
-                TodoItem newTodo = new TodoItem(userTitle);
+                TodoItem newTodo = new TodoItem();
 
                 System.out.println("Please enter your note:");
                 String userNewNote = scanner.nextLine();

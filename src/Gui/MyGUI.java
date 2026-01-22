@@ -120,7 +120,7 @@ public final class MyGUI extends JFrame implements ActionListener, KeyListener {
                 outputArea.setText("**New Note has been added!**\n\n" + "\t" + tempTitle + "\n" + tempContent + "\n" + tempDate);
 
             } else if (currentState == 4) {
-                TodoItem newTodo = new TodoItem(tempTitle);
+                TodoItem newTodo = new TodoItem();
                 newTodo.setContents(tempContent);
                 newTodo.setDueDate(tempDate);
                 todo_ObjectForGUI.pushTodoIntoArray(newTodo);
