@@ -1,1 +1,2 @@
-## This is a the classic beginner To-Do List side-project
+### Classic beginner project: To-Do List
+#### Work in Progress
