@@ -1,5 +1,4 @@
-import Gui.MyGUI;
-import ToDos.Todo;
+import ToDos.TodoItem;
 import ToDos.TodoList;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -10,41 +9,41 @@ public class Main {
         DateTimeFormatter displayDateOnly = DateTimeFormatter.ofPattern("MM-dd-yyyy");
         Scanner scanner = new Scanner(System.in);
         TodoList myListOfToDos = new TodoList();
-        MyGUI mygui = new MyGUI(myListOfToDos);
+        //MyGUI mygui = new MyGUI(myListOfToDos);
 
         do {
             Menu menu = new Menu();
             userMenuChoice = scanner.nextInt();
             scanner.nextLine();
 
-            if(userMenuChoice == 1) {
+            if (userMenuChoice == 1) {
                 System.out.print("Enter Title: ");
                 String userTitle = scanner.nextLine();
-                Todo newTodo = new Todo(userTitle);
+                TodoItem newTodo = new TodoItem(userTitle);
 
                 System.out.println("Please enter your note:");
                 String userNewNote = scanner.nextLine();
-                newTodo.setNoteContents(userNewNote);
+                newTodo.setContents(userNewNote);
                 myListOfToDos.pushTodoIntoArray(newTodo);
 
                 System.out.print("Enter desired completion date (MM-dd-yyyy): ");
                 String userDesiredDate = scanner.nextLine();
-                newTodo.setUserDefinedEndDateOfNote(userDesiredDate);
+                newTodo.setDueDate(userDesiredDate);
             }
 
-            if(userMenuChoice == 2) {
-                for (Todo todoLoop : TodoList.getAllTodos()) {
-                    System.out.println("\tDate Written: " + todoLoop.getDateOfNoteConception().format(displayDateOnly));
-                    System.out.println("\t\t\t" + todoLoop.getNoteTitle() + "\n" + todoLoop.getNoteContents());
-                    System.out.println("\tDesired Completion Date: " + todoLoop.getUserDefinedEndDateOfNote().format(displayDateOnly) + "\n");
+            if (userMenuChoice == 2) {
+                for (TodoItem todoLoop : TodoList.getAllTodos()) {
+                    System.out.println("\tDate Written: " + todoLoop.getDateCreated().format(displayDateOnly));
+                    System.out.println("\t\t\t" + todoLoop.getTitle() + "\n" + todoLoop.getContents());
+                    System.out.println("\tDesired Completion Date: " + todoLoop.getDueDate().format(displayDateOnly) + "\n");
                 }
 
             }
 
-            if(userMenuChoice == 3) {
+            if (userMenuChoice == 3) {
                 System.out.println("Select a note to delete: ");
-                for (Todo todoLoop : TodoList.getAllTodos()) {
-                    System.out.println(todoLoop.getNoteTitle());
+                for (TodoItem todoLoop : TodoList.getAllTodos()) {
+                    System.out.println(todoLoop.getTitle());
                 }
                 int userNoteRemovalDecision = scanner.nextInt();
                 myListOfToDos.removeTodoFromArrayByIndex(userNoteRemovalDecision);

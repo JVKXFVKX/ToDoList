@@ -3,14 +3,13 @@ import java.util.ArrayList;
 
 public class TodoList {
 
-    private static ArrayList<Todo> todoListArray;
-
+    private static ArrayList<TodoItem> todoListArray;
 
     public TodoList() {
-        todoListArray = new ArrayList<Todo>();
+        todoListArray = new ArrayList<TodoItem>();
     }
 
-    public void pushTodoIntoArray(Todo note) {
+    public void pushTodoIntoArray(TodoItem note) {
         todoListArray.add(note);
     }
 
@@ -18,7 +17,7 @@ public class TodoList {
         todoListArray.remove(index);
     }
 
-    public static ArrayList<Todo> getAllTodos() {
+    public static ArrayList<TodoItem> getAllTodos() {
         return todoListArray;
     }
 }

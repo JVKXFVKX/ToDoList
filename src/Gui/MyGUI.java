@@ -1,5 +1,5 @@
 package Gui;
-import ToDos.Todo;
+import ToDos.TodoItem;
 import ToDos.TodoList;
 import java.awt.*;
 import javax.swing.*;
@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 
 public final class MyGUI extends JFrame implements ActionListener, KeyListener {
 
+    private final TodoList todo_ObjectForGUI;
     private int currentState = 0;
     private String tempTitle;
     private String tempContent;
@@ -17,9 +18,9 @@ public final class MyGUI extends JFrame implements ActionListener, KeyListener {
     private JButton newNoteButton;
     private JButton viewNoteButton;
     private JButton removeNoteButton;
-    private JTextArea userEntryField;
+    private JTextField userEntryField;
+    private JTextArea userEntryArea;
     private JTextArea outputArea;
-    private final TodoList todo_ObjectForGUI;
 
     public MyGUI(TodoList todo_ListForGUI) {
         super("To-Do's");
@@ -30,47 +31,51 @@ public final class MyGUI extends JFrame implements ActionListener, KeyListener {
         newNoteButton = new JButton("Write New Note");
         viewNoteButton = new JButton("View Notes");
         removeNoteButton = new JButton("Remove Note");
-        userEntryField = new JTextArea(1, 20);
-        userEntryField.setEditable(true);
+
+        userEntryArea = new JTextArea(1, 20);
+        userEntryField = new JTextField(20);
         outputArea = new JTextArea(15, 20);
+
+        userEntryArea.setEditable(true);
+        userEntryField.setEditable(true);
         outputArea.setEditable(false);
 
+        JMenu jmenu = new JMenu("Test Menu");
+        jmenu.add(jmenu);
 
         JScrollPane scrollPane = new JScrollPane(outputArea);
-
         userEntryField.addKeyListener((KeyListener) this);
+        userEntryArea.addKeyListener((KeyListener) this);
         newNoteButton.addActionListener((ActionListener) this);
         viewNoteButton.addActionListener((ActionListener) this);
         removeNoteButton.addActionListener((ActionListener) this);
 
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(new JLabel("Test Label"));
+        buttonPanel.add(newNoteButton);
+        buttonPanel.add(viewNoteButton);
+        buttonPanel.add(removeNoteButton);
+
         JPanel inputPanel = new JPanel();
-        inputPanel.add(new JLabel("Test Label"));
-        inputPanel.add(newNoteButton);
-        inputPanel.add(viewNoteButton);
-        inputPanel.add(removeNoteButton);
+        inputPanel.add(userEntryField);
 
-        JPanel inputPanel2 = new JPanel();
-        inputPanel2.add(userEntryField);
-
-        JPanel inputPanel3 = new JPanel();
-        inputPanel3.add(outputArea);
+        JPanel outputPanel = new JPanel();
+        outputPanel.add(outputArea);
 
         JPanel mainPanel = new JPanel(new BorderLayout());
-        mainPanel.add(inputPanel, BorderLayout.WEST);
+        mainPanel.add(buttonPanel, BorderLayout.NORTH);
         mainPanel.add(scrollPane, BorderLayout.EAST);
-        mainPanel.add(inputPanel2, BorderLayout.SOUTH);
-        mainPanel.add(inputPanel3, BorderLayout.NORTH);
+        mainPanel.add(inputPanel, BorderLayout.SOUTH);
+        mainPanel.add(outputPanel, BorderLayout.CENTER);
+        //mainPanel.add(jmenu, BorderLayout.NORTH);
 
         add(mainPanel);
         pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
-    /**
-     * @param e the event to be processed
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -86,11 +91,11 @@ public final class MyGUI extends JFrame implements ActionListener, KeyListener {
         if (e.getSource() == removeNoteButton) {
 
         }
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 
             if (currentState == 1) {
@@ -112,12 +117,12 @@ public final class MyGUI extends JFrame implements ActionListener, KeyListener {
                 outputArea.setText(tempDate);
                 userEntryField.setText("");
                 currentState = 4;
-                outputArea.setText("**New Note has been added!**\n\n" + "\t" + tempTitle + "\n" + tempContent + tempDate);
+                outputArea.setText("**New Note has been added!**\n\n" + "\t" + tempTitle + "\n" + tempContent + "\n" + tempDate);
 
             } else if (currentState == 4) {
-                Todo newTodo = new Todo(tempTitle);
-                newTodo.setNoteContents(tempContent);
-                newTodo.setUserDefinedEndDateOfNote(tempDate);
+                TodoItem newTodo = new TodoItem(tempTitle);
+                newTodo.setContents(tempContent);
+                newTodo.setDueDate(tempDate);
                 todo_ObjectForGUI.pushTodoIntoArray(newTodo);
                 currentState = 0;
             }
